@@ -1,6 +1,16 @@
 # filelines-measurer
 Show stats graphs of the lines of a file in time. Useful only if file was tracked by git.
 
+
+## Requirements:
+
+- git
+- matplotlib  (for graph drawing)
+`` sudo apt-get install python3-matplotlib ``
+
+Or see http://matplotlib.org/users/installing.html
+
+
 ## Instructions
 
 Execute in console
@@ -9,15 +19,8 @@ Execute in console
 
 Where 'filepath' is the path (relative or absolute) of the file you want to measure.
 
-IMPORTANT,
-*fatal: XXX: 'XXX' is outside repository*
 
-- If the file to measure is in an outside repository, you **need** to specify the path of the git repository where the file is located.
-Use --gitdir path/to/git/repo
-
-`` python3 filelines.py --gitdir path/to/git/repo  filepath`` 
-
-### Fixed horizontal line
+### Custom horizontal line
 
 If you want a fixed horizontal line (maybe to compare the lines with a limit),
 you can pass an optional value --y_line followed by a number
@@ -31,13 +34,13 @@ you can pass an optional value --y_line followed by a number
 [image1]: https://raw.githubusercontent.com/JonSeijo/filelines-measurer/master/img/example.png "filelines measuring example"
 
 
-## Requirements:
+### Troubleshooting
+*fatal: XXX: 'XXX' is outside repository*
 
-- git
-- matplotlib  (for graph drawing)
-`` sudo apt-get install python3-matplotlib ``
+- If the file to measure is in an outside repository, you **need** to specify the path of the git repository where the file is located.
+Use --gitdir path/to/git/repo
 
-Or see http://matplotlib.org/users/installing.html
+`` python3 filelines.py --gitdir path/to/git/repo  filepath`` 
 
 
 #### Python2
