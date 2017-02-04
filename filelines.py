@@ -9,6 +9,7 @@ outfile_format_name = "tmp_formatted.txt"
 git_log_constant = "1 file changed, "  # Used for grep, do not modify
 
 diff_list = []
+total_list = []
 
 def is_insertion(str):
     return str == "insertion" or str == "insertions"
@@ -29,7 +30,6 @@ def get_stats(line):
             current_diff -= int(words[i-1])
 
     diff_list.append(current_diff)
-    print(diff_list)
 
 
 with open(outfile_git_name, "w") as outfile:
@@ -48,3 +48,12 @@ with open(outfile_format_name) as f:
         get_stats(line)
 
 
+# Reverse diffs to be in incremental time
+diff_list.reverse()
+total_list.append(diff_list[0]) # Need at least one element
+
+for i in range(1, len(diff_list)):
+    total_list.append(total_list[i-1] + diff_list[i])
+
+print(diff_list)
+print(total_list)
