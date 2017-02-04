@@ -31,10 +31,7 @@ if args.gitdir != None:
 
 command_git_log += " log --stat --pretty=format: " + filepath
 
-
-# python3 filelines.py --gitdir /home/jonno/exactas/algo2/tp3/.git /home/jonno/exactas/algo2/tp3/Base/Juego.cpp
-# python3 filelines.py --gitdir /home/jonno/exactas/algo2/tp3 /home/jonno/exactas/algo2/tp3/Base/Juego.cpp
-
+    
 def is_insertion(str):
     return str == "insertion" or str == "insertions"
 
