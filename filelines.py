@@ -13,14 +13,14 @@ total_list = []
 
 # Parse arguments passed by command line
 parser = argparse.ArgumentParser()
-parser.add_argument("filename", help = "Relative or absolute path to the file you want to measure")
+parser.add_argument("filepath", help = "Relative or absolute path to the file you want to measure")
 parser.add_argument("--gitdir",
          help = "Specify repository directory if the file to measure is in a ouside repository. "
             + "(Relative or absolute)")
 
 args = parser.parse_args()
 
-filename = args.filename
+filepath = args.filepath
 
 #git "--git-dir=/home/repo/.git"
 command_git_log = "git"
@@ -29,7 +29,7 @@ command_git_log = "git"
 if args.gitdir != None:
     command_git_log += " -C " + args.gitdir
 
-command_git_log += " log --stat --pretty=format: " + filename
+command_git_log += " log --stat --pretty=format: " + filepath
 
 
 # python3 filelines.py --gitdir /home/jonno/exactas/algo2/tp3/.git /home/jonno/exactas/algo2/tp3/Base/Juego.cpp
@@ -74,16 +74,30 @@ with open(outfile_format_name) as f:
 # Delete tmp file
 subprocess.call(["rm", outfile_format_name])
 
-# Reverse diffs to be in incremental time
-diff_list.reverse()
-total_list.append(diff_list[0]) # Need at least one element
 
-for i in range(1, len(diff_list)):
-    total_list.append(total_list[i-1] + diff_list[i])
+# I dont want to throw an Error.. 
+if (len(diff_list) == 0):
+    msg_no_lines = "\nThe file " + filepath + " never had any lines ever! \n" 
+    msg_no_lines += "Probably it is located in an external repository and you didn't specyfy --gitdir"
+    
+    print(msg_no_lines)
 
-# plot
-plt.plot(total_list)
-plt.title(filename)
-plt.ylabel('File lines')
-plt.xlabel('Commits')
-plt.show()
+
+else:
+    # Reverse diffs to be in incremental time
+    diff_list.reverse()
+    total_list.append(diff_list[0]) # Need at least one element
+
+    total_min = total_list[0]
+    total_max = total_list[0]
+
+    for i in range(1, len(diff_list)):
+        total_list.append(total_list[i-1] + diff_list[i])
+
+    # plot
+    plt.plot(total_list)
+    plt.grid()
+    plt.title(filepath)
+    plt.ylabel('File lines')
+    plt.xlabel('Commits')
+    plt.show()
