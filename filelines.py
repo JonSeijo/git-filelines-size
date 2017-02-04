@@ -2,6 +2,7 @@ import subprocess
 import re
 import matplotlib.pyplot as plt
 import argparse
+import os
 
 outfile_git_name = "tmp_git.txt"
 outfile_format_name = "tmp_formatted.txt"
@@ -23,6 +24,11 @@ args = parser.parse_args()
 
 filepath = args.filepath
 custom_y = args.y_line
+
+
+if not os.path.isfile(filepath):
+    raise ValueError("NOT A FILE: " + filepath)
+
 
 #git "--git-dir=/home/repo/.git"
 command_git_log = "git"
