@@ -25,7 +25,6 @@ filepath = args.filepath
 #git "--git-dir=/home/repo/.git"
 command_git_log = "git"
 
-
 if args.gitdir != None:
     command_git_log += " -C " + args.gitdir
 
@@ -85,17 +84,14 @@ else:
     diff_list.reverse()
     total_list.append(diff_list[0]) # Need at least one element
 
-    total_min = total_list[0]
     total_max = total_list[0]
 
     for i in range(1, len(diff_list)):
         total_list.append(total_list[i-1] + diff_list[i])
-
-        if (total_list[-1] < total_min):
-            total_min = total_list[-1]
-        elif (total_list[-1] > total_max):
+        if (total_list[-1] > total_max):
             total_max = total_list[-1]
 
+    total_current = total_list[-1]
 
     # plot
     plt.plot(total_list)
@@ -104,9 +100,16 @@ else:
     plt.ylabel('File lines')
     plt.xlabel('Commits')
 
+    # Plot max line
     plt.axhline(y=total_max, color='r', linestyle='-')
+    plt.annotate('max: \n' + str(total_max), xy=(1, total_max), xytext=(10, 0),
+        xycoords=('axes fraction', 'data'), textcoords='offset points')
 
-    plt.annotate(total_max, xy=(1, total_max), xytext=(10, 0),
-        xycoords=('axes fraction', 'data'), textcoords='offset points' )
+    # Plot current line
+    if (total_current != total_max):
+        plt.axhline(y=total_current, color='b', linestyle='-')
+        plt.annotate("curr:\n" + str(total_current), xy=(1, total_current), xytext=(10, 0),
+            xycoords=('axes fraction', 'data'), textcoords='offset points')    
+
 
     plt.show()
