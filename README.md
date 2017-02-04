@@ -27,6 +27,10 @@ you can pass an optional value --y_line followed by a number
 (This will draw an horizontal line at y=300)
 
 
+![alt text][image1]
+[image1]: https://raw.githubusercontent.com/JonSeijo/filelines-measurer/master/img/example.png "filelines measuring example"
+
+
 ## Requirements:
 
 - git
