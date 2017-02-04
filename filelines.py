@@ -13,7 +13,8 @@ total_list = []
 
 # Parse arguments passed by command line
 parser = argparse.ArgumentParser()
-parser.add_argument("filepath", help = "Relative or absolute path to the file you want to measure")
+parser.add_argument("filepath", help="Relative or absolute path to the file you want to measure")
+parser.add_argument("--y_line", help="Draw horizontal line on y position (integer)", type=int)
 parser.add_argument("--gitdir",
          help = "Specify repository directory if the file to measure is in a ouside repository. "
             + "(Relative or absolute)")
@@ -102,14 +103,11 @@ else:
 
     # Plot max line
     plt.axhline(y=total_max, color='r', linestyle='-')
-    plt.annotate('max: \n' + str(total_max), xy=(1, total_max), xytext=(10, 0),
-        xycoords=('axes fraction', 'data'), textcoords='offset points')
+    plt.text(len(total_list)/2, total_max + 1, r'max=' + str(total_max))    
 
     # Plot current line
     if (total_current != total_max):
         plt.axhline(y=total_current, color='b', linestyle='-')
-        plt.annotate("curr:\n" + str(total_current), xy=(1, total_current), xytext=(10, 0),
-            xycoords=('axes fraction', 'data'), textcoords='offset points')    
-
+        plt.text(0, total_current + 1, r'curr=' + str(total_current))
 
     plt.show()
