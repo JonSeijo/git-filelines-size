@@ -22,6 +22,7 @@ parser.add_argument("--gitdir",
 args = parser.parse_args()
 
 filepath = args.filepath
+custom_y = args.y_line
 
 #git "--git-dir=/home/repo/.git"
 command_git_log = "git"
@@ -104,6 +105,10 @@ else:
     # Plot max line
     plt.axhline(y=total_max, color='r', linestyle='-')
     plt.text(len(total_list)/2, total_max + 1, r'max=' + str(total_max))    
+
+    if (custom_y != None):
+        plt.axhline(y=custom_y, color='g', linestyle='-')
+        plt.text(len(total_list)/2, custom_y + 1, r'custom=' + str(custom_y))        
 
     # Plot current line
     if (total_current != total_max):
