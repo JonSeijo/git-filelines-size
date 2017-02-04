@@ -18,7 +18,9 @@ Where 'filename' is the path (relative or absolute) of the file you want to meas
 
 - git
 - matplotlib  (for graph drawing)
-`` http://matplotlib.org/users/installing.html ``
+`` sudo apt-get install python3-matplotlib ``
+
+Or see http://matplotlib.org/users/installing.html
 
 
 #### Python2
