@@ -1,8 +1,15 @@
 import subprocess
 import re
 import matplotlib.pyplot as plt
+import argparse
 
-filename = "README.md"
+parser = argparse.ArgumentParser()
+parser.add_argument("filename", help = "Relative or absolute path to the file you want to measure")
+
+args = parser.parse_args()
+
+filename = args.filename
+
 
 outfile_git_name = "tmp_git.txt"
 outfile_format_name = "tmp_formatted.txt"
@@ -58,7 +65,7 @@ total_list.append(diff_list[0]) # Need at least one element
 for i in range(1, len(diff_list)):
     total_list.append(total_list[i-1] + diff_list[i])
 
-
+# plot
 plt.plot(total_list)
 plt.title(filename)
 plt.ylabel('File lines')
