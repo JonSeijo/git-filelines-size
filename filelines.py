@@ -91,10 +91,22 @@ else:
     for i in range(1, len(diff_list)):
         total_list.append(total_list[i-1] + diff_list[i])
 
+        if (total_list[-1] < total_min):
+            total_min = total_list[-1]
+        elif (total_list[-1] > total_max):
+            total_max = total_list[-1]
+
+
     # plot
     plt.plot(total_list)
     plt.grid()
-    plt.title(filepath)
+    # plt.title(filepath)
     plt.ylabel('File lines')
     plt.xlabel('Commits')
+
+    plt.axhline(y=total_max, color='r', linestyle='-')
+
+    plt.annotate(total_max, xy=(1, total_max), xytext=(10, 0),
+        xycoords=('axes fraction', 'data'), textcoords='offset points' )
+
     plt.show()
