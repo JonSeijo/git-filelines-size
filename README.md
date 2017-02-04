@@ -3,15 +3,19 @@ Show stats graphs of the lines of a file in time. Useful only if file was tracke
 
 ## Instructions
 
-*Put filelines.py in any directory inside the repository you want to track*
-
-(Why? Because it need to be in the same repo of the file to get stats of that repo. This is a limitation of git, maybe there is a workaround)
-
 Execute in console
 
-`` python3 filelines.py filename`` 
+`` python3 filelines.py filepath`` 
 
-Where 'filename' is the path (relative or absolute) of the file you want to measure.
+Where 'filepath' is the path (relative or absolute) of the file you want to measure.
+
+IMPORTANT,
+*fatal: XXX: 'XXX' is outside repository*
+
+- If the file to measure is in an outside repository, you **need** to specify the path of the git repository where the file is located.
+Use --gitdir path/to/git/repo
+
+`` python3 filelines.py --gitdir path/to/git/repo  filepath`` 
 
 
 ## Requirements:
