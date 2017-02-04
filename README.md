@@ -23,7 +23,7 @@ Where 'filepath' is the path (relative or absolute) of the file you want to meas
 ### Custom horizontal line
 
 If you want a fixed horizontal line (maybe to compare the lines with a limit),
-you can pass an optional value --y_line followed by a number
+you can pass an optional value **--y_line** followed by a number
 
 `` python3 filelines.py filepath --y_line 300``
 
@@ -40,7 +40,7 @@ you can pass an optional value --y_line followed by a number
 - If the file to measure is in an outside repository, you **need** to specify the path of the git repository where the file is located.
 Use --gitdir path/to/git/repo
 
-`` python3 filelines.py --gitdir path/to/git/repo  filepath`` 
+`` python3 filelines.py filepath --gitdir path/to/git/repo `` 
 
 
 #### Python2
