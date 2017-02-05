@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("filepath", help="Relative or absolute path to the file you want to measure")
 parser.add_argument("--y_line", help="Draw horizontal line on y position (integer)", type=int)
 parser.add_argument("--gitdir",
-         help = "Specify repository directory if the file to measure is in a ouside repository. "
+         help="Specify repository directory if the file to measure is in a ouside repository. "
             + "(Relative or absolute)")
 
 args = parser.parse_args()
@@ -30,7 +30,7 @@ if not os.path.isfile(filepath):
     raise ValueError("NOT A FILE: " + filepath)
 
 
-#git "--git-dir=/home/repo/.git"
+#git "--git-dir=/home/repo/"
 command_git_log = "git"
 
 if args.gitdir != None:
@@ -49,8 +49,6 @@ def get_stats(line):
     current_diff = 0
 
     # Magic number 4 to avoid "1 file changed" string
-    # Removing it add unnecesary extra operations when I can simply skip them 
-    # (Will only read them once)
     for i in range(4, len(words), 2):
         if is_insertion(words[i]):
             current_diff += int(words[i-1])
@@ -104,7 +102,7 @@ else:
     # plot
     plt.plot(total_list)
     plt.grid()
-    # plt.title(filepath)
+    plt.title(filepath)
     plt.ylabel('File lines')
     plt.xlabel('Commits')
 
@@ -112,6 +110,7 @@ else:
     plt.axhline(y=total_max, color='r', linestyle='-')
     plt.text(len(total_list)/2, total_max + 1, r'max=' + str(total_max))    
 
+    # Plot custom line
     if (custom_y != None):
         plt.axhline(y=custom_y, color='g', linestyle='-')
         plt.text(len(total_list)/2, custom_y + 1, r'custom=' + str(custom_y))        
