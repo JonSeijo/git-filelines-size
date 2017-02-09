@@ -15,6 +15,7 @@ total_list = []
 # Parse arguments passed by command line
 parser = argparse.ArgumentParser()
 parser.add_argument("filepath", help="Relative or absolute path to the file you want to measure")
+parser.add_argument("-p", help="Use points instead of line in graphs", action='store_true')
 parser.add_argument("--y_line", help="Draw horizontal line on y position (integer)", type=int)
 parser.add_argument("--gitdir",
          help="Specify repository directory if the file to measure is in a ouside repository. "
@@ -24,7 +25,7 @@ args = parser.parse_args()
 
 filepath = args.filepath
 custom_y = args.y_line
-
+use_point = args.p
 
 if not os.path.isfile(filepath):
     raise ValueError("NOT A FILE: " + filepath)
@@ -100,7 +101,10 @@ else:
     total_current = total_list[-1]
 
     # plot
-    plt.plot(total_list)
+    if (use_point):
+        plt.plot([i for i in range(1, len(total_list) + 1)], total_list, 'bo')
+    else:
+        plt.plot(total_list)
     plt.grid()
     plt.title(filepath)
     plt.ylabel('File lines')
